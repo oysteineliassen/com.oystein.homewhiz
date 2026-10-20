@@ -284,6 +284,19 @@
             "no": "Skriver hver mottatte BLE-ramme og sammensatte statusmelding som hex til app-loggen."
           },
           "value": true
+        },
+        {
+          "id": "ignore_remote_check",
+          "type": "checkbox",
+          "value": false,
+          "label": {
+            "en": "Send commands without remote control signal (test)",
+            "no": "Send kommandoer uten fjernstyringssignal (test)"
+          },
+          "hint": {
+            "en": "Sends start/pause even when the machine does not report Remote Control as enabled. Only for testing whether the machine accepts commands.",
+            "no": "Sender start/pause selv om maskinen ikke melder at Remote Control er på. Bare for å teste om maskinen godtar kommandoer."
+          }
         }
       ],
       "id": "washer"

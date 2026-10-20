@@ -68,7 +68,11 @@ class WasherDevice extends Homey.Device {
     let plan;
     try {
       if (!this.connection.isConnected) throw new CommandError('not_connected');
-      plan = planStateCommand(this._status, action);
+      const requireRemoteControl = !this.getSetting('ignore_remote_check');
+      plan = planStateCommand(this._status, action, { requireRemoteControl });
+      if (!requireRemoteControl && !this._status.remoteControl) {
+        this.log(`Command ${action}: remote control not reported, sending anyway (ignore_remote_check)`);
+      }
     } catch (err) {
       if (err instanceof CommandError) {
         this.log(`Command ${action} refused: ${err.code}`);

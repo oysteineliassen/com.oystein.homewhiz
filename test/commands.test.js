@@ -47,3 +47,8 @@ test('commands are refused without remote control, status or a valid transition'
   assert.strictEqual(code(() => planStateCommand(status('delayed'), 'start')), 'not_allowed_delayed');
   assert.strictEqual(code(() => planStateCommand(status('on'), 'pause')), 'not_allowed_on');
 });
+
+test('remote control check can be skipped for testing', () => {
+  const plan = planStateCommand(status('on', false), 'start', { requireRemoteControl: false });
+  assert.strictEqual(plan.target, 'running');
+});
