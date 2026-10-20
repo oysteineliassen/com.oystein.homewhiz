@@ -8,7 +8,7 @@
     "washer_start",
     "washer_pause",
     "washer_state",
-    "washer_program",
+    "washer_program_select",
     "washer_phase",
     "washer_remaining",
     "washer_temperature",

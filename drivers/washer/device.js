@@ -3,7 +3,7 @@
 const Homey = require('homey');
 const HomeWhizConnection = require('../../lib/HomeWhizConnection');
 const { MessageAccumulator, toHex } = require('../../lib/protocol');
-const { decodeWasher, programName } = require('../../lib/washerModel');
+const { PROGRAMS, decodeWasher, programName } = require('../../lib/washerModel');
 const { detectEvents } = require('../../lib/washerEvents');
 const { CommandError, planStateCommand, planProgramCommands } = require('../../lib/washerCommands');
 
@@ -24,6 +24,8 @@ class WasherDevice extends Homey.Device {
     for (const capability of this.driver.manifest.capabilities) {
       if (!this.hasCapability(capability)) await this.addCapability(capability).catch(this.error);
     }
+    // Replaced by the washer_program_select picker in 0.6.0
+    if (this.hasCapability('washer_program')) await this.removeCapability('washer_program').catch(this.error);
 
     this._debugRaw = this.getSetting('debug_raw') !== false;
     this._lastMessageHex = null;
@@ -51,6 +53,16 @@ class WasherDevice extends Homey.Device {
 
     this.registerCapabilityListener('washer_start', () => this.sendStateCommand('start'));
     this.registerCapabilityListener('washer_pause', () => this.sendStateCommand('pause'));
+    this.registerCapabilityListener('washer_program_select', async (value) => {
+      try {
+        await this.selectProgram({ programId: Number(value) });
+      } catch (err) {
+        // Show the machine's actual programme again instead of the rejected choice
+        const current = this._status && PROGRAMS[this._status.programId] ? String(this._status.programId) : null;
+        this.homey.setTimeout(() => this.setCapabilityValue('washer_program_select', current).catch(this.error), 500);
+        throw err;
+      }
+    });
 
     await this.setCapabilityValue('homewhiz_connected', false).catch(this.error);
     this.connection.start();
@@ -154,7 +166,8 @@ class WasherDevice extends Homey.Device {
     await Promise.all([
       this._set('washer_state', status.state),
       this._set('washer_on', status.on),
-      this._set('washer_program', program),
+      // null for programme numbers outside the configuration (e.g. 0 while off)
+      this._set('washer_program_select', PROGRAMS[status.programId] ? String(status.programId) : null),
       this._set('washer_phase', status.phase),
       this._set('washer_remaining', status.remainingMinutes),
       this._set('washer_temperature', status.temperature),

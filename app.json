@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.oystein.homewhiz",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "compatibility": ">=12.0.0",
   "sdk": 3,
   "platforms": [
@@ -534,7 +534,7 @@
         "washer_start",
         "washer_pause",
         "washer_state",
-        "washer_program",
+        "washer_program_select",
         "washer_phase",
         "washer_remaining",
         "washer_temperature",
@@ -818,16 +818,151 @@
       ],
       "icon": "/assets/capabilities/washer_phase.svg"
     },
-    "washer_program": {
-      "type": "string",
+    "washer_program_select": {
+      "type": "enum",
       "title": {
         "en": "Program",
         "no": "Program"
       },
       "getable": true,
-      "setable": false,
-      "uiComponent": "sensor",
-      "icon": "/assets/capabilities/washer_program.svg"
+      "setable": true,
+      "uiComponent": "picker",
+      "icon": "/assets/capabilities/washer_program.svg",
+      "values": [
+        {
+          "id": "1",
+          "title": {
+            "en": "Cottons",
+            "no": "Bomull"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Eco 40-60",
+            "no": "Øko 40–60"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Synthetics",
+            "no": "Syntetisk"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Mini 14'",
+            "no": "Ekspress (Ekspress 14)"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Wool / Hand wash",
+            "no": "Ull (håndvask)"
+          }
+        },
+        {
+          "id": "6",
+          "title": {
+            "en": "Dark wash",
+            "no": "Mørkt tøy (dongeribukser)"
+          }
+        },
+        {
+          "id": "7",
+          "title": {
+            "en": "Mix",
+            "no": "Blanding"
+          }
+        },
+        {
+          "id": "8",
+          "title": {
+            "en": "Spin + Drain",
+            "no": "Spin+pumpe"
+          }
+        },
+        {
+          "id": "9",
+          "title": {
+            "en": "Rinse",
+            "no": "Skyll"
+          }
+        },
+        {
+          "id": "10",
+          "title": {
+            "en": "Outdoor / Sports",
+            "no": "Sport"
+          }
+        },
+        {
+          "id": "11",
+          "title": {
+            "en": "Stain expert",
+            "no": "Flekkfjerning"
+          }
+        },
+        {
+          "id": "12",
+          "title": {
+            "en": "Hygiene+",
+            "no": "Hygiene+"
+          }
+        },
+        {
+          "id": "13",
+          "title": {
+            "en": "Duvet",
+            "no": "Dyne"
+          }
+        },
+        {
+          "id": "14",
+          "title": {
+            "en": "Shirts",
+            "no": "Skjorter"
+          }
+        },
+        {
+          "id": "15",
+          "title": {
+            "en": "Steam refresh",
+            "no": "Oppfrisking med damp"
+          }
+        },
+        {
+          "id": "17",
+          "title": {
+            "en": "Towels",
+            "no": "Håndkle"
+          }
+        },
+        {
+          "id": "18",
+          "title": {
+            "en": "Soft toys",
+            "no": "Myke leker"
+          }
+        },
+        {
+          "id": "19",
+          "title": {
+            "en": "Curtains",
+            "no": "Gardiner"
+          }
+        },
+        {
+          "id": "41",
+          "title": {
+            "en": "Drum clean",
+            "no": "Trommelrengjøring"
+          }
+        }
+      ]
     },
     "washer_remaining": {
       "type": "number",
