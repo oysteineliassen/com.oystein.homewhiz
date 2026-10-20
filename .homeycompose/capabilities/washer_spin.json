@@ -13,5 +13,6 @@
   },
   "decimals": 0,
   "min": 0,
-  "max": 1600
+  "max": 1600,
+  "icon": "/assets/capabilities/washer_spin.svg"
 }

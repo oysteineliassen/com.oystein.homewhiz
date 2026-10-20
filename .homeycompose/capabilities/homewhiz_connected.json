@@ -15,5 +15,6 @@
   "insightsTitleFalse": {
     "en": "Disconnected",
     "no": "Frakoblet"
-  }
+  },
+  "icon": "/assets/capabilities/homewhiz_connected.svg"
 }

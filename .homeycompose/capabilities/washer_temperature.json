@@ -13,5 +13,6 @@
   },
   "decimals": 0,
   "min": 0,
-  "max": 90
+  "max": 90,
+  "icon": "/assets/capabilities/washer_temperature.svg"
 }

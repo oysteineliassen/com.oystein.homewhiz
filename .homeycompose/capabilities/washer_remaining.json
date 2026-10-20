@@ -13,5 +13,6 @@
   },
   "decimals": 0,
   "min": 0,
-  "insights": true
+  "insights": true,
+  "icon": "/assets/capabilities/washer_remaining.svg"
 }

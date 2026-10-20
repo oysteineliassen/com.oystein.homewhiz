@@ -50,5 +50,6 @@
         "no": "Ukjent"
       }
     }
-  ]
+  ],
+  "icon": "/assets/capabilities/washer_state.svg"
 }

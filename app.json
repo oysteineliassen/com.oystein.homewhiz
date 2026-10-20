@@ -251,7 +251,8 @@
       "insightsTitleFalse": {
         "en": "Disconnected",
         "no": "Frakoblet"
-      }
+      },
+      "icon": "/assets/capabilities/homewhiz_connected.svg"
     },
     "washer_on": {
       "type": "boolean",
@@ -270,7 +271,8 @@
       "insightsTitleFalse": {
         "en": "Switched off",
         "no": "Slått av"
-      }
+      },
+      "icon": "/assets/capabilities/washer_on.svg"
     },
     "washer_phase": {
       "type": "enum",
@@ -422,7 +424,8 @@
             "no": "Ukjent"
           }
         }
-      ]
+      ],
+      "icon": "/assets/capabilities/washer_phase.svg"
     },
     "washer_program": {
       "type": "string",
@@ -432,7 +435,8 @@
       },
       "getable": true,
       "setable": false,
-      "uiComponent": "sensor"
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/washer_program.svg"
     },
     "washer_remaining": {
       "type": "number",
@@ -449,7 +453,8 @@
       },
       "decimals": 0,
       "min": 0,
-      "insights": true
+      "insights": true,
+      "icon": "/assets/capabilities/washer_remaining.svg"
     },
     "washer_spin": {
       "type": "number",
@@ -466,7 +471,8 @@
       },
       "decimals": 0,
       "min": 0,
-      "max": 1600
+      "max": 1600,
+      "icon": "/assets/capabilities/washer_spin.svg"
     },
     "washer_state": {
       "type": "enum",
@@ -520,7 +526,8 @@
             "no": "Ukjent"
           }
         }
-      ]
+      ],
+      "icon": "/assets/capabilities/washer_state.svg"
     },
     "washer_temperature": {
       "type": "number",
@@ -537,7 +544,8 @@
       },
       "decimals": 0,
       "min": 0,
-      "max": 90
+      "max": 90,
+      "icon": "/assets/capabilities/washer_temperature.svg"
     }
   }
 }

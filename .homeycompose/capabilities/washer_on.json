@@ -15,5 +15,6 @@
   "insightsTitleFalse": {
     "en": "Switched off",
     "no": "Slått av"
-  }
+  },
+  "icon": "/assets/capabilities/washer_on.svg"
 }
