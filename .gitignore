@@ -1,5 +1,5 @@
-# Homey-appen trenger PNG-bilder (rotmappens .gitignore ignorerer *.png)
-!*.png
 node_modules/
 .homeybuild/
 env.json
+# Output of tools/fetch-homewhiz-config.mjs; the configuration is baked into lib/washerModel.js
+model/
