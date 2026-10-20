@@ -11,6 +11,12 @@ class WasherDriver extends Homey.Driver {
     this.phaseChangedTrigger = this.homey.flow.getDeviceTriggerCard('washer_phase_changed');
     this.homey.flow.getConditionCard('washer_is_running')
       .registerRunListener(async ({ device }) => device.isRunning());
+    this.homey.flow.getConditionCard('washer_remote_control_enabled')
+      .registerRunListener(async ({ device }) => device.isRemoteControlEnabled());
+    this.homey.flow.getActionCard('washer_start')
+      .registerRunListener(async ({ device }) => device.sendStateCommand('start'));
+    this.homey.flow.getActionCard('washer_pause')
+      .registerRunListener(async ({ device }) => device.sendStateCommand('pause'));
     this.log('Washer driver initialized');
   }
 

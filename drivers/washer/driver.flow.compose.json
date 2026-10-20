@@ -10,8 +10,14 @@
         {
           "name": "program",
           "type": "string",
-          "title": { "en": "Program", "no": "Program" },
-          "example": { "en": "Cottons", "no": "Bomull" }
+          "title": {
+            "en": "Program",
+            "no": "Program"
+          },
+          "example": {
+            "en": "Cottons",
+            "no": "Bomull"
+          }
         }
       ]
     },
@@ -25,25 +31,40 @@
         {
           "name": "program",
           "type": "string",
-          "title": { "en": "Program", "no": "Program" },
-          "example": { "en": "Cottons", "no": "Bomull" }
+          "title": {
+            "en": "Program",
+            "no": "Program"
+          },
+          "example": {
+            "en": "Cottons",
+            "no": "Bomull"
+          }
         },
         {
           "name": "temperature",
           "type": "number",
-          "title": { "en": "Temperature", "no": "Temperatur" },
+          "title": {
+            "en": "Temperature",
+            "no": "Temperatur"
+          },
           "example": 40
         },
         {
           "name": "spin",
           "type": "number",
-          "title": { "en": "Spin speed", "no": "Sentrifugehastighet" },
+          "title": {
+            "en": "Spin speed",
+            "no": "Sentrifugehastighet"
+          },
           "example": 1200
         },
         {
           "name": "remaining",
           "type": "number",
-          "title": { "en": "Minutes remaining", "no": "Minutter igjen" },
+          "title": {
+            "en": "Minutes remaining",
+            "no": "Minutter igjen"
+          },
           "example": 94
         }
       ]
@@ -58,13 +79,22 @@
         {
           "name": "phase",
           "type": "string",
-          "title": { "en": "Phase", "no": "Fase" },
-          "example": { "en": "Rinsing", "no": "Skylling" }
+          "title": {
+            "en": "Phase",
+            "no": "Fase"
+          },
+          "example": {
+            "en": "Rinsing",
+            "no": "Skylling"
+          }
         },
         {
           "name": "phase_id",
           "type": "string",
-          "title": { "en": "Phase ID", "no": "Fase-ID" },
+          "title": {
+            "en": "Phase ID",
+            "no": "Fase-ID"
+          },
           "example": "rinsing"
         }
       ]
@@ -80,6 +110,37 @@
       "hint": {
         "en": "Running also includes a paused programme.",
         "no": "Kjører inkluderer også et program som står på pause."
+      }
+    },
+    {
+      "id": "washer_remote_control_enabled",
+      "title": {
+        "en": "Remote control !{{is|is not}} enabled",
+        "no": "Fjernstyring !{{er|er ikke}} aktivert"
+      }
+    }
+  ],
+  "actions": [
+    {
+      "id": "washer_start",
+      "title": {
+        "en": "Start the programme",
+        "no": "Start programmet"
+      },
+      "hint": {
+        "en": "Requires Remote Control to be enabled on the machine.",
+        "no": "Krever at Remote Control er slått på på maskinen."
+      }
+    },
+    {
+      "id": "washer_pause",
+      "title": {
+        "en": "Pause the programme",
+        "no": "Sett programmet på pause"
+      },
+      "hint": {
+        "en": "Requires Remote Control to be enabled on the machine.",
+        "no": "Krever at Remote Control er slått på på maskinen."
       }
     }
   ]

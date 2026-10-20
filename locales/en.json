@@ -24,5 +24,17 @@
     "anticrease": "Anti-crease",
     "unknown": "Unknown",
     "preparing": "Preparing"
+  },
+  "errors": {
+    "not_connected": "The washing machine is not connected.",
+    "no_status": "No status received from the washing machine yet.",
+    "remote_off": "Remote control is off. Press Remote Control on the washing machine first.",
+    "not_allowed_off": "The washing machine is switched off.",
+    "not_allowed_on": "No programme is running.",
+    "not_allowed_running": "The programme is already running.",
+    "not_allowed_paused": "The programme is already paused.",
+    "not_allowed_delayed": "The machine is waiting for a delayed start.",
+    "not_allowed_unknown": "The machine is in an unknown state.",
+    "no_response": "The washing machine did not respond to the command."
   }
 }

@@ -5,6 +5,8 @@
   },
   "class": "washer",
   "capabilities": [
+    "washer_start",
+    "washer_pause",
     "washer_state",
     "washer_program",
     "washer_phase",
@@ -12,6 +14,7 @@
     "washer_temperature",
     "washer_spin",
     "washer_door_locked",
+    "washer_remote_control",
     "washer_on",
     "homewhiz_connected"
   ],

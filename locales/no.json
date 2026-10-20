@@ -24,5 +24,17 @@
     "anticrease": "Antikrøll",
     "unknown": "Ukjent",
     "preparing": "Forbereder"
+  },
+  "errors": {
+    "not_connected": "Vaskemaskinen er ikke tilkoblet.",
+    "no_status": "Har ikke fått status fra vaskemaskinen ennå.",
+    "remote_off": "Fjernstyring er av. Trykk på Remote Control på vaskemaskinen først.",
+    "not_allowed_off": "Vaskemaskinen er slått av.",
+    "not_allowed_on": "Ingen program kjører.",
+    "not_allowed_running": "Programmet kjører allerede.",
+    "not_allowed_paused": "Programmet står allerede på pause.",
+    "not_allowed_delayed": "Maskinen venter på utsatt start.",
+    "not_allowed_unknown": "Maskinen er i en ukjent tilstand.",
+    "no_response": "Vaskemaskinen svarte ikke på kommandoen."
   }
 }

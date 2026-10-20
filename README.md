@@ -3,15 +3,23 @@
 Kobler en HomeWhiz-vaskemaskin (Grundig GWP696110W, produktkode 7177881300) til Homey Pro via Bluetooth LE.
 Homey SDK v3, JavaScript, ingen avhengigheter utover Homey selv.
 
-**Status: versjon 1 (kun lesing)** – pairing via BLE-søk, automatisk gjenoppkobling, dekoding av status,
-capabilities og Flow-kort. Ingen styring av maskinen.
+**Status: versjon 2** – pairing via BLE-søk, automatisk gjenoppkobling, dekoding av status,
+capabilities, Flow-kort og fjernstart/pause.
 
 Capabilities: status (av/på/kjører/pause/utsatt start), slått på, program, fase, gjenstående tid, vasketemperatur,
 sentrifugehastighet, dør låst og Bluetooth tilkoblet.
 
 «Vask er ferdig» utløses ikke når et program avbrytes. «Fase endret» utløses først når en fase har vart i 10 sekunder.
 
-Flow-kort: «Vask er ferdig», «Program startet» og «Fase endret» (triggere), «Maskinen kjører» (betingelse).
+Flow-kort: «Vask er ferdig», «Program startet» og «Fase endret» (triggere), «Maskinen kjører» og
+«Fjernstyring er aktivert» (betingelser), «Start programmet» og «Sett programmet på pause» (handlinger).
+
+### Fjernstart og pause
+
+Start- og pauseknappene på enheten og handlingskortene virker bare når **Remote Control** er slått på
+på maskinen (byte 32 = 170). Programmet velges på maskinen; appen kan bare starte, pause og fortsette.
+Kommandoen er `02 04 00 04 00 22 01 <verdi>` til `ac01` (indeks 34; 30 = kjør, 40 = pause), og appen venter
+inntil 15 sekunder på at maskinen melder den nye tilstanden før den gir feilmelding.
 
 Byte-posisjoner og programliste ligger i `lib/washerModel.js`, hentet fra HomeWhiz-konfigurasjonen
 CONFIGURATION_471 v18 for produktkode 7177881300.

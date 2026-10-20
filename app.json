@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.oystein.homewhiz",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "compatibility": ">=12.0.0",
   "sdk": 3,
   "platforms": [
@@ -171,6 +171,58 @@
             "filter": "driver_id=washer"
           }
         ]
+      },
+      {
+        "id": "washer_remote_control_enabled",
+        "title": {
+          "en": "Remote control !{{is|is not}} enabled",
+          "no": "Fjernstyring !{{er|er ikke}} aktivert"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=washer"
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "washer_start",
+        "title": {
+          "en": "Start the programme",
+          "no": "Start programmet"
+        },
+        "hint": {
+          "en": "Requires Remote Control to be enabled on the machine.",
+          "no": "Krever at Remote Control er slått på på maskinen."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=washer"
+          }
+        ]
+      },
+      {
+        "id": "washer_pause",
+        "title": {
+          "en": "Pause the programme",
+          "no": "Sett programmet på pause"
+        },
+        "hint": {
+          "en": "Requires Remote Control to be enabled on the machine.",
+          "no": "Krever at Remote Control er slått på på maskinen."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=washer"
+          }
+        ]
       }
     ]
   },
@@ -182,6 +234,8 @@
       },
       "class": "washer",
       "capabilities": [
+        "washer_start",
+        "washer_pause",
         "washer_state",
         "washer_program",
         "washer_phase",
@@ -189,6 +243,7 @@
         "washer_temperature",
         "washer_spin",
         "washer_door_locked",
+        "washer_remote_control",
         "washer_on",
         "homewhiz_connected"
       ],
@@ -294,6 +349,17 @@
         "no": "Slått av"
       },
       "icon": "/assets/capabilities/washer_on.svg"
+    },
+    "washer_pause": {
+      "type": "boolean",
+      "title": {
+        "en": "Pause",
+        "no": "Pause"
+      },
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "icon": "/assets/capabilities/washer_pause.svg"
     },
     "washer_phase": {
       "type": "enum",
@@ -484,6 +550,17 @@
       "insights": true,
       "icon": "/assets/capabilities/washer_remaining.svg"
     },
+    "washer_remote_control": {
+      "type": "boolean",
+      "title": {
+        "en": "Remote control enabled",
+        "no": "Fjernstyring aktivert"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/capabilities/washer_remote_control.svg"
+    },
     "washer_spin": {
       "type": "number",
       "title": {
@@ -501,6 +578,17 @@
       "min": 0,
       "max": 1600,
       "icon": "/assets/capabilities/washer_spin.svg"
+    },
+    "washer_start": {
+      "type": "boolean",
+      "title": {
+        "en": "Start",
+        "no": "Start"
+      },
+      "getable": false,
+      "setable": true,
+      "uiComponent": "button",
+      "icon": "/assets/capabilities/washer_start.svg"
     },
     "washer_state": {
       "type": "enum",
