@@ -11,6 +11,7 @@
     "washer_remaining",
     "washer_temperature",
     "washer_spin",
+    "washer_door_locked",
     "washer_on",
     "homewhiz_connected"
   ],

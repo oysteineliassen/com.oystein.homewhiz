@@ -6,6 +6,10 @@ const { MessageAccumulator, toHex } = require('../../lib/protocol');
 const { decodeWasher, programName } = require('../../lib/washerModel');
 const { detectEvents } = require('../../lib/washerEvents');
 
+// The machine can flick through phases within a few seconds (seen: rinsing -> spin -> softener
+// in 5 s), so "Phase changed" fires only once a phase has lasted this long
+const PHASE_SETTLE_MS = 10000;
+
 class WasherDevice extends Homey.Device {
 
   async onInit() {
@@ -20,6 +24,8 @@ class WasherDevice extends Homey.Device {
     this._debugRaw = this.getSetting('debug_raw') !== false;
     this._lastMessageHex = null;
     this._status = null;
+    this._phaseTimer = null;
+    this._lastTriggeredPhase = null;
     this._accumulator = new MessageAccumulator((msg) => this.log(msg));
 
     this.connection = new HomeWhizConnection({
@@ -62,7 +68,7 @@ class WasherDevice extends Homey.Device {
     this.log(`MSG ${hex}`);
     this.log(`Status: state=${status.state}(${status.stateRaw}) program=${status.programId} temp=${status.temperature} spin=${status.spin}`
       + ` remaining=${status.remainingMinutes}min phase=${status.phase}(${status.phaseRaw})`
-      + ` warnings=${JSON.stringify(status.warnings)} remote=${status.remoteControl}`);
+      + ` doorLocked=${status.doorLocked} warnings=${JSON.stringify(status.warnings)} remote=${status.remoteControl}`);
     this._applyStatus(status).catch(this.error);
   }
 
@@ -79,6 +85,7 @@ class WasherDevice extends Homey.Device {
       this._set('washer_remaining', status.remainingMinutes),
       this._set('washer_temperature', status.temperature),
       this._set('washer_spin', status.spin),
+      this._set('washer_door_locked', status.doorLocked),
     ]);
 
     for (const event of detectEvents(prev, status)) {
@@ -91,14 +98,26 @@ class WasherDevice extends Homey.Device {
           remaining: status.remainingMinutes,
         }).catch(this.error);
       } else if (event.type === 'phase') {
-        await this.driver.phaseChangedTrigger.trigger(this, {
-          phase: this.homey.__(`phase.${status.phase}`),
-          phase_id: status.phase,
-        }).catch(this.error);
+        this._schedulePhaseTrigger();
       } else if (event.type === 'finished') {
         await this.driver.finishedTrigger.trigger(this, { program }).catch(this.error);
       }
     }
+  }
+
+  _schedulePhaseTrigger() {
+    this.homey.clearTimeout(this._phaseTimer);
+    this._phaseTimer = this.homey.setTimeout(() => {
+      this._phaseTimer = null;
+      const { phase } = this._status;
+      if (phase === this._lastTriggeredPhase || phase === 'none' || phase === 'unknown') return;
+      this._lastTriggeredPhase = phase;
+      this.log(`Flow trigger: phase changed to ${phase}`);
+      this.driver.phaseChangedTrigger.trigger(this, {
+        phase: this.homey.__(`phase.${phase}`),
+        phase_id: phase,
+      }).catch(this.error);
+    }, PHASE_SETTLE_MS);
   }
 
   async _set(capability, value) {
@@ -113,10 +132,12 @@ class WasherDevice extends Homey.Device {
   }
 
   async onUninit() {
+    this.homey.clearTimeout(this._phaseTimer);
     if (this.connection) await this.connection.stop();
   }
 
   async onDeleted() {
+    this.homey.clearTimeout(this._phaseTimer);
     if (this.connection) await this.connection.stop();
   }
 

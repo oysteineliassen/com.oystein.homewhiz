@@ -7,7 +7,9 @@ Homey SDK v3, JavaScript, ingen avhengigheter utover Homey selv.
 capabilities og Flow-kort. Ingen styring av maskinen.
 
 Capabilities: status (av/på/kjører/pause/utsatt start), slått på, program, fase, gjenstående tid, vasketemperatur,
-sentrifugehastighet og Bluetooth tilkoblet.
+sentrifugehastighet, dør låst og Bluetooth tilkoblet.
+
+«Vask er ferdig» utløses ikke når et program avbrytes. «Fase endret» utløses først når en fase har vart i 10 sekunder.
 
 Flow-kort: «Vask er ferdig», «Program startet» og «Fase endret» (triggere), «Maskinen kjører» (betingelse).
 
@@ -84,6 +86,7 @@ Kilde: [rowysock/home-assistant-HomeWhiz](https://github.com/rowysock/home-assis
 | 48 / 49 | Utsatt start | timer / minutter |
 | 50 | Fase (substate) | 1 vask, 2 sentrifuge, 3 vanninntak, 4 forvask, 5 skyll, 6 tøymykner, 11 dør låst, 15 ta ut tøy, … |
 | 59 | Advarsler (bitmaske) | bit 0 dør åpen, bit 1 mangler vann, bit 2 sikkerhet |
+| 63 | Dør låst (øverste bit) | ikke i skykonfigurasjonen, funnet ved testvask 2026-10-20 |
 
 **Skyavhengighet**
 - HA henter konfigurasjonen fra skyen ved oppsett (innlogging + AWS-signert API), men bare én gang. Etterpå er alt lokalt over BLE.

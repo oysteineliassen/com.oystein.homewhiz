@@ -22,6 +22,7 @@
     "add_laundry": "Add laundry",
     "rinse_hold": "Rinse hold",
     "anticrease": "Anti-crease",
-    "unknown": "Unknown"
+    "unknown": "Unknown",
+    "preparing": "Preparing"
   }
 }

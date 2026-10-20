@@ -32,6 +32,22 @@ test('decodes the real message from the machine', () => {
   assert.strictEqual(status.remainingMinutes, 0, 'remaining time is 0 while off');
   assert.strictEqual(status.phase, 'none');
   assert.deepStrictEqual(status.warnings, { doorOpen: false, noWater: false, security: false });
+  assert.strictEqual(status.doorLocked, false);
+});
+
+test('door lock bit and preparing phase from the real test wash', () => {
+  // 11:12:38: running, door just locked, phase 18
+  const locked = hex('00 d4 c6 d5 ab 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 03 00 00 00 00 00 00 00 00 1e 84 1e 06 00 80 00 00 80 00 0e 00 0e 80 80 12 00 00 00 00 00 00 00 00 00 00 80 80 80 80 80 00 00 00 82 01 07 80 00 80 80 00');
+  const status = decodeWasher(locked);
+  assert.strictEqual(status.state, 'running');
+  assert.strictEqual(status.programId, 4);
+  assert.strictEqual(programName(status.programId, 'no'), 'Ekspress (Ekspress 14)');
+  assert.strictEqual(status.phase, 'preparing');
+  assert.strictEqual(status.doorLocked, true);
+  assert.strictEqual(status.remainingMinutes, 14);
+  // 11:12:35: same, three seconds earlier, before the lock engaged
+  locked[63] = 0x00;
+  assert.strictEqual(decodeWasher(locked).doorLocked, false);
 });
 
 test('remaining time is reported while running', () => {
@@ -48,7 +64,7 @@ test('unknown programme falls back to its number', () => {
   assert.strictEqual(programName(16, 'no'), 'Program 16');
 });
 
-const s = (state, phase = 'none') => ({ state, phase });
+const s = (state, phase = 'none', remainingMinutes = 0) => ({ state, phase, remainingMinutes });
 const types = (prev, next) => detectEvents(prev, next).map((e) => e.type);
 
 test('no events on the first message', () => {
@@ -72,4 +88,16 @@ test('finished fires once, either via the finished phase or when the programme s
   assert.deepStrictEqual(types(s('on', 'finished'), s('off', 'none')), []);
   assert.deepStrictEqual(types(s('running', 'spin'), s('on', 'none')), ['finished']);
   assert.deepStrictEqual(types(s('on'), s('off')), []);
+});
+
+test('a cancelled programme is not reported as finished', () => {
+  assert.deepStrictEqual(types(s('running', 'washing', 14), s('off', 'none', 0)), []);
+  assert.deepStrictEqual(types(s('running', 'washing', 14), s('on', 'none', 14)), []);
+});
+
+// Sequence from the Ekspress 14 test wash on 2026-10-20
+test('real end of wash fires finished exactly once', () => {
+  const end = [s('running', 'spin', 0), s('on', 'none', 0), s('on', 'finished', 0)];
+  const fired = end.slice(1).flatMap((next, i) => types(end[i], next));
+  assert.deepStrictEqual(fired, ['finished', 'phase']);
 });

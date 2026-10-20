@@ -79,6 +79,13 @@
       }
     },
     {
+      "id": "preparing",
+      "title": {
+        "en": "Preparing",
+        "no": "Forbereder"
+      }
+    },
+    {
       "id": "delay",
       "title": {
         "en": "Delayed start",

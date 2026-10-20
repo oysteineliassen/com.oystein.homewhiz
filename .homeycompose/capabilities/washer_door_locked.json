@@ -1,0 +1,20 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Door locked",
+    "no": "Dør låst"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "insightsTitleTrue": {
+    "en": "Door locked",
+    "no": "Dør låst"
+  },
+  "insightsTitleFalse": {
+    "en": "Door unlocked",
+    "no": "Dør ulåst"
+  },
+  "insights": true,
+  "icon": "/assets/capabilities/washer_door_locked.svg"
+}
