@@ -1,0 +1,5 @@
+# Homey-appen trenger PNG-bilder (rotmappens .gitignore ignorerer *.png)
+!*.png
+node_modules/
+.homeybuild/
+env.json

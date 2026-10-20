@@ -1,0 +1,19 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Bluetooth connected",
+    "no": "Bluetooth tilkoblet"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Connected",
+    "no": "Tilkoblet"
+  },
+  "insightsTitleFalse": {
+    "en": "Disconnected",
+    "no": "Frakoblet"
+  }
+}

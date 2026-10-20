@@ -1,0 +1,26 @@
+{
+  "id": "com.oystein.homewhiz",
+  "version": "0.1.0",
+  "compatibility": ">=12.0.0",
+  "sdk": 3,
+  "platforms": ["local"],
+  "name": {
+    "en": "HomeWhiz",
+    "no": "HomeWhiz"
+  },
+  "description": {
+    "en": "Connect HomeWhiz washing machines to Homey over Bluetooth LE",
+    "no": "Koble HomeWhiz-vaskemaskiner til Homey via Bluetooth LE"
+  },
+  "category": ["appliances"],
+  "permissions": ["homey:wireless:ble"],
+  "brandColor": "#1E6FB8",
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Øystein Eliassen"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "com.oystein.homewhiz",
+  "version": "0.1.0",
+  "private": true,
+  "description": "HomeWhiz washing machine over Bluetooth LE for Homey Pro",
+  "main": "app.js",
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "fetch-config": "node tools/fetch-homewhiz-config.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED"
+}
