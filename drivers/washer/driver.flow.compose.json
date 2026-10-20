@@ -142,6 +142,298 @@
         "en": "Requires Remote Control to be enabled on the machine.",
         "no": "Krever at Remote Control er slått på på maskinen."
       }
+    },
+    {
+      "id": "washer_select_program",
+      "title": {
+        "en": "Select programme",
+        "no": "Velg program"
+      },
+      "titleFormatted": {
+        "en": "Select [[program]] at [[temperature]], spin [[spin]]",
+        "no": "Velg [[program]] på [[temperature]], sentrifuge [[spin]]"
+      },
+      "hint": {
+        "en": "The machine must be switched on with the dial on Downloaded Program and Remote Control enabled. Start the programme afterwards with \"Start the programme\".",
+        "no": "Maskinen må være på, med hjulet på Downloaded Program og Remote Control aktivert. Start programmet etterpå med «Start programmet»."
+      },
+      "args": [
+        {
+          "type": "dropdown",
+          "name": "program",
+          "title": {
+            "en": "Programme",
+            "no": "Program"
+          },
+          "values": [
+            {
+              "id": "1",
+              "title": {
+                "en": "Cottons",
+                "no": "Bomull"
+              }
+            },
+            {
+              "id": "2",
+              "title": {
+                "en": "Eco 40-60",
+                "no": "Øko 40–60"
+              }
+            },
+            {
+              "id": "3",
+              "title": {
+                "en": "Synthetics",
+                "no": "Syntetisk"
+              }
+            },
+            {
+              "id": "4",
+              "title": {
+                "en": "Mini 14'",
+                "no": "Ekspress (Ekspress 14)"
+              }
+            },
+            {
+              "id": "5",
+              "title": {
+                "en": "Wool / Hand wash",
+                "no": "Ull (håndvask)"
+              }
+            },
+            {
+              "id": "6",
+              "title": {
+                "en": "Dark wash",
+                "no": "Mørkt tøy (dongeribukser)"
+              }
+            },
+            {
+              "id": "7",
+              "title": {
+                "en": "Mix",
+                "no": "Blanding"
+              }
+            },
+            {
+              "id": "8",
+              "title": {
+                "en": "Spin + Drain",
+                "no": "Spin+pumpe"
+              }
+            },
+            {
+              "id": "9",
+              "title": {
+                "en": "Rinse",
+                "no": "Skyll"
+              }
+            },
+            {
+              "id": "10",
+              "title": {
+                "en": "Outdoor / Sports",
+                "no": "Sport"
+              }
+            },
+            {
+              "id": "11",
+              "title": {
+                "en": "Stain expert",
+                "no": "Flekkfjerning"
+              }
+            },
+            {
+              "id": "12",
+              "title": {
+                "en": "Hygiene+",
+                "no": "Hygiene+"
+              }
+            },
+            {
+              "id": "13",
+              "title": {
+                "en": "Duvet",
+                "no": "Dyne"
+              }
+            },
+            {
+              "id": "14",
+              "title": {
+                "en": "Shirts",
+                "no": "Skjorter"
+              }
+            },
+            {
+              "id": "15",
+              "title": {
+                "en": "Steam refresh",
+                "no": "Oppfrisking med damp"
+              }
+            },
+            {
+              "id": "17",
+              "title": {
+                "en": "Towels",
+                "no": "Håndkle"
+              }
+            },
+            {
+              "id": "18",
+              "title": {
+                "en": "Soft toys",
+                "no": "Myke leker"
+              }
+            },
+            {
+              "id": "19",
+              "title": {
+                "en": "Curtains",
+                "no": "Gardiner"
+              }
+            },
+            {
+              "id": "41",
+              "title": {
+                "en": "Drum clean",
+                "no": "Trommelrengjøring"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "temperature",
+          "title": {
+            "en": "Temperature",
+            "no": "Temperatur"
+          },
+          "values": [
+            {
+              "id": "default",
+              "title": {
+                "en": "Programme default",
+                "no": "Programmets standard"
+              }
+            },
+            {
+              "id": "0",
+              "title": {
+                "en": "Cold",
+                "no": "Kaldvask"
+              }
+            },
+            {
+              "id": "20",
+              "title": {
+                "en": "20 °C",
+                "no": "20 °C"
+              }
+            },
+            {
+              "id": "30",
+              "title": {
+                "en": "30 °C",
+                "no": "30 °C"
+              }
+            },
+            {
+              "id": "40",
+              "title": {
+                "en": "40 °C",
+                "no": "40 °C"
+              }
+            },
+            {
+              "id": "60",
+              "title": {
+                "en": "60 °C",
+                "no": "60 °C"
+              }
+            },
+            {
+              "id": "90",
+              "title": {
+                "en": "90 °C",
+                "no": "90 °C"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "spin",
+          "title": {
+            "en": "Spin",
+            "no": "Sentrifuge"
+          },
+          "values": [
+            {
+              "id": "default",
+              "title": {
+                "en": "Programme default",
+                "no": "Programmets standard"
+              }
+            },
+            {
+              "id": "no_spin",
+              "title": {
+                "en": "No spin",
+                "no": "Uten sentrifugering"
+              }
+            },
+            {
+              "id": "rinse_hold",
+              "title": {
+                "en": "Rinse hold",
+                "no": "Skyllestopp"
+              }
+            },
+            {
+              "id": "600",
+              "title": {
+                "en": "600 rpm",
+                "no": "600 o/min"
+              }
+            },
+            {
+              "id": "800",
+              "title": {
+                "en": "800 rpm",
+                "no": "800 o/min"
+              }
+            },
+            {
+              "id": "1000",
+              "title": {
+                "en": "1000 rpm",
+                "no": "1000 o/min"
+              }
+            },
+            {
+              "id": "1200",
+              "title": {
+                "en": "1200 rpm",
+                "no": "1200 o/min"
+              }
+            },
+            {
+              "id": "1400",
+              "title": {
+                "en": "1400 rpm",
+                "no": "1400 o/min"
+              }
+            },
+            {
+              "id": "1600",
+              "title": {
+                "en": "1600 rpm",
+                "no": "1600 o/min"
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }

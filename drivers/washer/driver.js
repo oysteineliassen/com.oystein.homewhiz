@@ -3,6 +3,13 @@
 const Homey = require('homey');
 const { looksLikeHomeWhiz } = require('../../lib/protocol');
 
+// Dropdown ids: 'default', 'no_spin', 'rinse_hold' or an rpm value
+function parseSpin(spin) {
+  if (spin === 'default') return undefined;
+  if (spin === 'no_spin' || spin === 'rinse_hold') return spin;
+  return Number(spin);
+}
+
 class WasherDriver extends Homey.Driver {
 
   async onInit() {
@@ -17,6 +24,14 @@ class WasherDriver extends Homey.Driver {
       .registerRunListener(async ({ device }) => device.sendStateCommand('start'));
     this.homey.flow.getActionCard('washer_pause')
       .registerRunListener(async ({ device }) => device.sendStateCommand('pause'));
+    this.homey.flow.getActionCard('washer_select_program')
+      .registerRunListener(async ({
+        device, program, temperature, spin,
+      }) => device.selectProgram({
+        programId: Number(program),
+        temperature: temperature === 'default' ? undefined : Number(temperature),
+        spin: parseSpin(spin),
+      }));
     this.log('Washer driver initialized');
   }
 

@@ -12,12 +12,15 @@ sentrifugehastighet, dør låst og Bluetooth tilkoblet.
 «Vask er ferdig» utløses ikke når et program avbrytes. «Fase endret» utløses først når en fase har vart i 10 sekunder.
 
 Flow-kort: «Vask er ferdig», «Program startet» og «Fase endret» (triggere), «Maskinen kjører» og
-«Fjernstyring er aktivert» (betingelser), «Start programmet» og «Sett programmet på pause» (handlinger).
+«Fjernstyring er aktivert» (betingelser), «Velg program», «Start programmet» og «Sett programmet på pause» (handlinger).
 
 ### Fjernstart og pause
 
-Start- og pauseknappene på enheten og handlingskortene virker bare når **Remote Control** er slått på
-på maskinen (byte 32 = 170). Programmet velges på maskinen; appen kan bare starte, pause og fortsette.
+Fjernstyring slås på ved å sette hjulet på **Downloaded Program** og holde **Remote Control** inne i
+3 sekunder (byte 32 blir 170). Først da virker start/pause og «Velg program».
+
+«Velg program» skriver program, temperatur og sentrifuge til indeks 36, 37 og 38, og sjekker verdiene
+mot det programmet tillater i maskinkonfigurasjonen.
 Kommandoen er `02 04 00 04 00 22 01 <verdi>` til `ac01` (indeks 34; 30 = kjør, 40 = pause), og appen venter
 inntil 15 sekunder på at maskinen melder den nye tilstanden før den gir feilmelding.
 

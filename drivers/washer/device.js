@@ -5,7 +5,7 @@ const HomeWhizConnection = require('../../lib/HomeWhizConnection');
 const { MessageAccumulator, toHex } = require('../../lib/protocol');
 const { decodeWasher, programName } = require('../../lib/washerModel');
 const { detectEvents } = require('../../lib/washerEvents');
-const { CommandError, planStateCommand } = require('../../lib/washerCommands');
+const { CommandError, planStateCommand, planProgramCommands } = require('../../lib/washerCommands');
 
 // The machine can flick through phases within a few seconds (seen: rinsing -> spin -> softener
 // in 5 s), so "Phase changed" fires only once a phase has lasted this long
@@ -30,7 +30,7 @@ class WasherDevice extends Homey.Device {
     this._status = null;
     this._phaseTimer = null;
     this._lastTriggeredPhase = null;
-    this._stateWaiters = [];
+    this._waiters = [];
     this._accumulator = new MessageAccumulator((msg) => this.log(msg));
 
     this.connection = new HomeWhizConnection({
@@ -65,14 +65,33 @@ class WasherDevice extends Homey.Device {
    * @param {'start'|'pause'} action
    */
   async sendStateCommand(action) {
-    let plan;
+    const plan = this._plan(action, () => planStateCommand(this._status, action));
+    if (plan.noop) {
+      this.log(`Command ${action}: already ${this._status.state}`);
+      return;
+    }
+
+    this.log(`Command ${action}: ${this._status.state} -> ${plan.target}`);
+    await this._writeAndConfirm(plan.command, (status) => status.state === plan.target, action);
+  }
+
+  /**
+   * Selects a programme, then temperature and spin. Each write waits for the machine
+   * to report the new value, since changing the programme resets the other settings.
+   * @param {{ programId: number, temperature?: number, spin?: number|string }} request
+   */
+  async selectProgram(request) {
+    const writes = this._plan('select', () => planProgramCommands(this._status, request));
+    this.log(`Command select: ${JSON.stringify(request)}`);
+    for (const { field, expected, command } of writes) {
+      await this._writeAndConfirm(command, (status) => status[field] === expected, `select ${field}=${expected}`);
+    }
+  }
+
+  _plan(action, plan) {
     try {
       if (!this.connection.isConnected) throw new CommandError('not_connected');
-      const requireRemoteControl = !this.getSetting('ignore_remote_check');
-      plan = planStateCommand(this._status, action, { requireRemoteControl });
-      if (!requireRemoteControl && !this._status.remoteControl) {
-        this.log(`Command ${action}: remote control not reported, sending anyway (ignore_remote_check)`);
-      }
+      return plan();
     } catch (err) {
       if (err instanceof CommandError) {
         this.log(`Command ${action} refused: ${err.code}`);
@@ -80,28 +99,26 @@ class WasherDevice extends Homey.Device {
       }
       throw err;
     }
-    if (plan.noop) {
-      this.log(`Command ${action}: already ${this._status.state}`);
-      return;
-    }
+  }
 
-    this.log(`Command ${action}: ${this._status.state} -> ${plan.target}`);
-    const reached = this._waitForState(plan.target, COMMAND_TIMEOUT_MS);
-    await this.connection.write(plan.command);
-    if (!await reached) {
-      this.log(`Command ${action}: no state change within ${COMMAND_TIMEOUT_MS / 1000} s`);
+  async _writeAndConfirm(command, predicate, description) {
+    if (this._status && predicate(this._status)) return;
+    const confirmed = this._waitFor(predicate, COMMAND_TIMEOUT_MS);
+    await this.connection.write(command);
+    if (!await confirmed) {
+      this.log(`Command ${description}: not confirmed within ${COMMAND_TIMEOUT_MS / 1000} s`);
       throw new Error(this.homey.__('errors.no_response'));
     }
   }
 
-  _waitForState(state, timeout) {
+  _waitFor(predicate, timeout) {
     return new Promise((resolve) => {
-      const waiter = { state, resolve };
+      const waiter = { predicate, resolve };
       waiter.timer = this.homey.setTimeout(() => {
-        this._stateWaiters = this._stateWaiters.filter((w) => w !== waiter);
+        this._waiters = this._waiters.filter((w) => w !== waiter);
         resolve(false);
       }, timeout);
-      this._stateWaiters.push(waiter);
+      this._waiters.push(waiter);
     });
   }
 
@@ -146,11 +163,12 @@ class WasherDevice extends Homey.Device {
       this._set('washer_remote_control', status.remoteControl),
     ]);
 
-    for (const waiter of this._stateWaiters.filter((w) => w.state === status.state)) {
+    const satisfied = this._waiters.filter((w) => w.predicate(status));
+    this._waiters = this._waiters.filter((w) => !satisfied.includes(w));
+    for (const waiter of satisfied) {
       this.homey.clearTimeout(waiter.timer);
       waiter.resolve(true);
     }
-    this._stateWaiters = this._stateWaiters.filter((w) => w.state !== status.state);
 
     for (const event of detectEvents(prev, status)) {
       this.log(`Flow trigger: ${event.type}`);
