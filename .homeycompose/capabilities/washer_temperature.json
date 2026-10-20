@@ -1,0 +1,17 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Wash temperature",
+    "no": "Vasketemperatur"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "units": {
+    "en": "°C",
+    "no": "°C"
+  },
+  "decimals": 0,
+  "min": 0,
+  "max": 90
+}

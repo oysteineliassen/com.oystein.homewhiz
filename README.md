@@ -3,8 +3,16 @@
 Kobler en HomeWhiz-vaskemaskin (Grundig GWP696110W, produktkode 7177881300) til Homey Pro via Bluetooth LE.
 Homey SDK v3, JavaScript, ingen avhengigheter utover Homey selv.
 
-**Status: steg 1–2** – pairing via BLE-søk, tilkobling, automatisk gjenoppkobling og logging av rå BLE-data.
-Dekoding til capabilities og Flow-kort kommer i steg 3–5.
+**Status: versjon 1 (kun lesing)** – pairing via BLE-søk, automatisk gjenoppkobling, dekoding av status,
+capabilities og Flow-kort. Ingen styring av maskinen.
+
+Capabilities: status (av/på/kjører/pause/utsatt start), slått på, program, fase, gjenstående tid, vasketemperatur,
+sentrifugehastighet og Bluetooth tilkoblet.
+
+Flow-kort: «Vask er ferdig», «Program startet» og «Fase endret» (triggere), «Maskinen kjører» (betingelse).
+
+Byte-posisjoner og programliste ligger i `lib/washerModel.js`, hentet fra HomeWhiz-konfigurasjonen
+CONFIGURATION_471 v18 for produktkode 7177881300.
 
 ## Kjøre appen (Windows / PowerShell)
 
@@ -34,7 +42,8 @@ hvis den ikke dukker opp i lista.
 | `[debug] GATT service … characteristic …` | Alle GATT-tjenester på maskinen (logges ved hver tilkobling) |
 | `RX frame idx=0/1 len=… : …` | Hver rå notification fra `ac02` (av/på med innstillingen «Logg rå BLE-data») |
 | `MSG …` | Sammensatt statusmelding (to rammer, 7 byte header fjernet). Logges kun når den endrer seg |
-| `MSG decoded (tentative layout): state=… program=…` | Foreløpig tolkning med byte-posisjonene fra HA-integrasjonen |
+| `Status: state=… program=… phase=…` | Dekodet status (rå verdi i parentes) |
+| `Flow trigger: started/phase/finished` | Flow-kort som ble utløst |
 | `Machine not reachable (…). Retrying quietly…` | Logges én gang når maskinen forsvinner; deretter stille forsøk hvert minutt |
 
 ## Maskinkonfigurasjon fra skyen (engangsjobb)

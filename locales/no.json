@@ -1,5 +1,27 @@
 {
   "pair": {
     "no_devices": "Fant ingen HomeWhiz-maskiner. Sjekk at maskinen er på og at HomeWhiz-appen på telefonen er frakoblet."
+  },
+  "phase": {
+    "none": "Ingen",
+    "washing": "Vask",
+    "prewash": "Forvask",
+    "water_intake": "Vanninntak",
+    "rinsing": "Skylling",
+    "softener": "Tøymykner",
+    "spin": "Sentrifugering",
+    "drying": "Tørking",
+    "finished": "Ferdig",
+    "program_started": "Program startet",
+    "delay": "Utsatt start",
+    "paused": "Pause",
+    "analysing": "Analyserer",
+    "door_locked": "Dør låst",
+    "locking_door": "Låser dør",
+    "opening_door": "Åpner dør",
+    "add_laundry": "Legg til tøy",
+    "rinse_hold": "Skyllestopp",
+    "anticrease": "Antikrøll",
+    "unknown": "Ukjent"
   }
 }

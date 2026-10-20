@@ -1,0 +1,19 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Switched on",
+    "no": "Slått på"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "insights": true,
+  "insightsTitleTrue": {
+    "en": "Switched on",
+    "no": "Slått på"
+  },
+  "insightsTitleFalse": {
+    "en": "Switched off",
+    "no": "Slått av"
+  }
+}

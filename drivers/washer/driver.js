@@ -6,6 +6,11 @@ const { looksLikeHomeWhiz } = require('../../lib/protocol');
 class WasherDriver extends Homey.Driver {
 
   async onInit() {
+    this.finishedTrigger = this.homey.flow.getDeviceTriggerCard('washer_finished');
+    this.programStartedTrigger = this.homey.flow.getDeviceTriggerCard('washer_program_started');
+    this.phaseChangedTrigger = this.homey.flow.getDeviceTriggerCard('washer_phase_changed');
+    this.homey.flow.getConditionCard('washer_is_running')
+      .registerRunListener(async ({ device }) => device.isRunning());
     this.log('Washer driver initialized');
   }
 

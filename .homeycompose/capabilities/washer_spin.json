@@ -1,0 +1,17 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Spin speed",
+    "no": "Sentrifugehastighet"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "units": {
+    "en": "rpm",
+    "no": "o/min"
+  },
+  "decimals": 0,
+  "min": 0,
+  "max": 1600
+}

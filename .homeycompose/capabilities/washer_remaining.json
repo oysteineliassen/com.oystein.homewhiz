@@ -1,0 +1,17 @@
+{
+  "type": "number",
+  "title": {
+    "en": "Time remaining",
+    "no": "Gjenstående tid"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "units": {
+    "en": "min",
+    "no": "min"
+  },
+  "decimals": 0,
+  "min": 0,
+  "insights": true
+}

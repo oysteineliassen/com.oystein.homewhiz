@@ -1,0 +1,86 @@
+{
+  "triggers": [
+    {
+      "id": "washer_finished",
+      "title": {
+        "en": "Wash is finished",
+        "no": "Vask er ferdig"
+      },
+      "tokens": [
+        {
+          "name": "program",
+          "type": "string",
+          "title": { "en": "Program", "no": "Program" },
+          "example": { "en": "Cottons", "no": "Bomull" }
+        }
+      ]
+    },
+    {
+      "id": "washer_program_started",
+      "title": {
+        "en": "Program started",
+        "no": "Program startet"
+      },
+      "tokens": [
+        {
+          "name": "program",
+          "type": "string",
+          "title": { "en": "Program", "no": "Program" },
+          "example": { "en": "Cottons", "no": "Bomull" }
+        },
+        {
+          "name": "temperature",
+          "type": "number",
+          "title": { "en": "Temperature", "no": "Temperatur" },
+          "example": 40
+        },
+        {
+          "name": "spin",
+          "type": "number",
+          "title": { "en": "Spin speed", "no": "Sentrifugehastighet" },
+          "example": 1200
+        },
+        {
+          "name": "remaining",
+          "type": "number",
+          "title": { "en": "Minutes remaining", "no": "Minutter igjen" },
+          "example": 94
+        }
+      ]
+    },
+    {
+      "id": "washer_phase_changed",
+      "title": {
+        "en": "Phase changed",
+        "no": "Fase endret"
+      },
+      "tokens": [
+        {
+          "name": "phase",
+          "type": "string",
+          "title": { "en": "Phase", "no": "Fase" },
+          "example": { "en": "Rinsing", "no": "Skylling" }
+        },
+        {
+          "name": "phase_id",
+          "type": "string",
+          "title": { "en": "Phase ID", "no": "Fase-ID" },
+          "example": "rinsing"
+        }
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "id": "washer_is_running",
+      "title": {
+        "en": "Machine !{{is|is not}} running",
+        "no": "Maskinen !{{kjører|kjører ikke}}"
+      },
+      "hint": {
+        "en": "Running also includes a paused programme.",
+        "no": "Kjører inkluderer også et program som står på pause."
+      }
+    }
+  ]
+}

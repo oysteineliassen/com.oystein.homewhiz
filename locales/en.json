@@ -1,5 +1,27 @@
 {
   "pair": {
     "no_devices": "No HomeWhiz machines found. Make sure the machine is on and that the HomeWhiz app on your phone is disconnected."
+  },
+  "phase": {
+    "none": "Idle",
+    "washing": "Washing",
+    "prewash": "Prewash",
+    "water_intake": "Water intake",
+    "rinsing": "Rinsing",
+    "softener": "Softener",
+    "spin": "Spin",
+    "drying": "Drying",
+    "finished": "Finished",
+    "program_started": "Program started",
+    "delay": "Delayed start",
+    "paused": "Paused",
+    "analysing": "Analysing",
+    "door_locked": "Door locked",
+    "locking_door": "Locking door",
+    "opening_door": "Opening door",
+    "add_laundry": "Add laundry",
+    "rinse_hold": "Rinse hold",
+    "anticrease": "Anti-crease",
+    "unknown": "Unknown"
   }
 }

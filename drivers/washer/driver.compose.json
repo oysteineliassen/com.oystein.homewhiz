@@ -4,9 +4,22 @@
     "no": "Vaskemaskin"
   },
   "class": "washer",
-  "capabilities": ["homewhiz_connected"],
-  "platforms": ["local"],
-  "connectivity": ["ble"],
+  "capabilities": [
+    "washer_state",
+    "washer_program",
+    "washer_phase",
+    "washer_remaining",
+    "washer_temperature",
+    "washer_spin",
+    "washer_on",
+    "homewhiz_connected"
+  ],
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "ble"
+  ],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",
     "large": "{{driverAssetsPath}}/images/large.png",
@@ -16,7 +29,9 @@
     {
       "id": "list_devices",
       "template": "list_devices",
-      "navigation": { "next": "add_devices" }
+      "navigation": {
+        "next": "add_devices"
+      }
     },
     {
       "id": "add_devices",

@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.oystein.homewhiz",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "compatibility": ">=12.0.0",
   "sdk": 3,
   "platforms": [
@@ -30,6 +30,150 @@
   "author": {
     "name": "Øystein Eliassen"
   },
+  "flow": {
+    "triggers": [
+      {
+        "id": "washer_finished",
+        "title": {
+          "en": "Wash is finished",
+          "no": "Vask er ferdig"
+        },
+        "tokens": [
+          {
+            "name": "program",
+            "type": "string",
+            "title": {
+              "en": "Program",
+              "no": "Program"
+            },
+            "example": {
+              "en": "Cottons",
+              "no": "Bomull"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=washer"
+          }
+        ]
+      },
+      {
+        "id": "washer_program_started",
+        "title": {
+          "en": "Program started",
+          "no": "Program startet"
+        },
+        "tokens": [
+          {
+            "name": "program",
+            "type": "string",
+            "title": {
+              "en": "Program",
+              "no": "Program"
+            },
+            "example": {
+              "en": "Cottons",
+              "no": "Bomull"
+            }
+          },
+          {
+            "name": "temperature",
+            "type": "number",
+            "title": {
+              "en": "Temperature",
+              "no": "Temperatur"
+            },
+            "example": 40
+          },
+          {
+            "name": "spin",
+            "type": "number",
+            "title": {
+              "en": "Spin speed",
+              "no": "Sentrifugehastighet"
+            },
+            "example": 1200
+          },
+          {
+            "name": "remaining",
+            "type": "number",
+            "title": {
+              "en": "Minutes remaining",
+              "no": "Minutter igjen"
+            },
+            "example": 94
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=washer"
+          }
+        ]
+      },
+      {
+        "id": "washer_phase_changed",
+        "title": {
+          "en": "Phase changed",
+          "no": "Fase endret"
+        },
+        "tokens": [
+          {
+            "name": "phase",
+            "type": "string",
+            "title": {
+              "en": "Phase",
+              "no": "Fase"
+            },
+            "example": {
+              "en": "Rinsing",
+              "no": "Skylling"
+            }
+          },
+          {
+            "name": "phase_id",
+            "type": "string",
+            "title": {
+              "en": "Phase ID",
+              "no": "Fase-ID"
+            },
+            "example": "rinsing"
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=washer"
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "id": "washer_is_running",
+        "title": {
+          "en": "Machine !{{is|is not}} running",
+          "no": "Maskinen !{{kjører|kjører ikke}}"
+        },
+        "hint": {
+          "en": "Running also includes a paused programme.",
+          "no": "Kjører inkluderer også et program som står på pause."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=washer"
+          }
+        ]
+      }
+    ]
+  },
   "drivers": [
     {
       "name": {
@@ -38,6 +182,13 @@
       },
       "class": "washer",
       "capabilities": [
+        "washer_state",
+        "washer_program",
+        "washer_phase",
+        "washer_remaining",
+        "washer_temperature",
+        "washer_spin",
+        "washer_on",
         "homewhiz_connected"
       ],
       "platforms": [
@@ -101,6 +252,292 @@
         "en": "Disconnected",
         "no": "Frakoblet"
       }
+    },
+    "washer_on": {
+      "type": "boolean",
+      "title": {
+        "en": "Switched on",
+        "no": "Slått på"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Switched on",
+        "no": "Slått på"
+      },
+      "insightsTitleFalse": {
+        "en": "Switched off",
+        "no": "Slått av"
+      }
+    },
+    "washer_phase": {
+      "type": "enum",
+      "title": {
+        "en": "Phase",
+        "no": "Fase"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "values": [
+        {
+          "id": "none",
+          "title": {
+            "en": "Idle",
+            "no": "Ingen"
+          }
+        },
+        {
+          "id": "washing",
+          "title": {
+            "en": "Washing",
+            "no": "Vask"
+          }
+        },
+        {
+          "id": "prewash",
+          "title": {
+            "en": "Prewash",
+            "no": "Forvask"
+          }
+        },
+        {
+          "id": "water_intake",
+          "title": {
+            "en": "Water intake",
+            "no": "Vanninntak"
+          }
+        },
+        {
+          "id": "rinsing",
+          "title": {
+            "en": "Rinsing",
+            "no": "Skylling"
+          }
+        },
+        {
+          "id": "softener",
+          "title": {
+            "en": "Softener",
+            "no": "Tøymykner"
+          }
+        },
+        {
+          "id": "spin",
+          "title": {
+            "en": "Spin",
+            "no": "Sentrifugering"
+          }
+        },
+        {
+          "id": "drying",
+          "title": {
+            "en": "Drying",
+            "no": "Tørking"
+          }
+        },
+        {
+          "id": "finished",
+          "title": {
+            "en": "Finished",
+            "no": "Ferdig"
+          }
+        },
+        {
+          "id": "program_started",
+          "title": {
+            "en": "Program started",
+            "no": "Program startet"
+          }
+        },
+        {
+          "id": "delay",
+          "title": {
+            "en": "Delayed start",
+            "no": "Utsatt start"
+          }
+        },
+        {
+          "id": "paused",
+          "title": {
+            "en": "Paused",
+            "no": "Pause"
+          }
+        },
+        {
+          "id": "analysing",
+          "title": {
+            "en": "Analysing",
+            "no": "Analyserer"
+          }
+        },
+        {
+          "id": "door_locked",
+          "title": {
+            "en": "Door locked",
+            "no": "Dør låst"
+          }
+        },
+        {
+          "id": "locking_door",
+          "title": {
+            "en": "Locking door",
+            "no": "Låser dør"
+          }
+        },
+        {
+          "id": "opening_door",
+          "title": {
+            "en": "Opening door",
+            "no": "Åpner dør"
+          }
+        },
+        {
+          "id": "add_laundry",
+          "title": {
+            "en": "Add laundry",
+            "no": "Legg til tøy"
+          }
+        },
+        {
+          "id": "rinse_hold",
+          "title": {
+            "en": "Rinse hold",
+            "no": "Skyllestopp"
+          }
+        },
+        {
+          "id": "anticrease",
+          "title": {
+            "en": "Anti-crease",
+            "no": "Antikrøll"
+          }
+        },
+        {
+          "id": "unknown",
+          "title": {
+            "en": "Unknown",
+            "no": "Ukjent"
+          }
+        }
+      ]
+    },
+    "washer_program": {
+      "type": "string",
+      "title": {
+        "en": "Program",
+        "no": "Program"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor"
+    },
+    "washer_remaining": {
+      "type": "number",
+      "title": {
+        "en": "Time remaining",
+        "no": "Gjenstående tid"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "units": {
+        "en": "min",
+        "no": "min"
+      },
+      "decimals": 0,
+      "min": 0,
+      "insights": true
+    },
+    "washer_spin": {
+      "type": "number",
+      "title": {
+        "en": "Spin speed",
+        "no": "Sentrifugehastighet"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "units": {
+        "en": "rpm",
+        "no": "o/min"
+      },
+      "decimals": 0,
+      "min": 0,
+      "max": 1600
+    },
+    "washer_state": {
+      "type": "enum",
+      "title": {
+        "en": "Status",
+        "no": "Status"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "values": [
+        {
+          "id": "off",
+          "title": {
+            "en": "Off",
+            "no": "Av"
+          }
+        },
+        {
+          "id": "on",
+          "title": {
+            "en": "On",
+            "no": "På"
+          }
+        },
+        {
+          "id": "running",
+          "title": {
+            "en": "Running",
+            "no": "Kjører"
+          }
+        },
+        {
+          "id": "paused",
+          "title": {
+            "en": "Paused",
+            "no": "Pause"
+          }
+        },
+        {
+          "id": "delayed",
+          "title": {
+            "en": "Delayed start",
+            "no": "Utsatt start"
+          }
+        },
+        {
+          "id": "unknown",
+          "title": {
+            "en": "Unknown",
+            "no": "Ukjent"
+          }
+        }
+      ]
+    },
+    "washer_temperature": {
+      "type": "number",
+      "title": {
+        "en": "Wash temperature",
+        "no": "Vasketemperatur"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "units": {
+        "en": "°C",
+        "no": "°C"
+      },
+      "decimals": 0,
+      "min": 0,
+      "max": 90
     }
   }
 }

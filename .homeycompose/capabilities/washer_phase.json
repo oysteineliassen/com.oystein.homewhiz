@@ -1,0 +1,152 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Phase",
+    "no": "Fase"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "values": [
+    {
+      "id": "none",
+      "title": {
+        "en": "Idle",
+        "no": "Ingen"
+      }
+    },
+    {
+      "id": "washing",
+      "title": {
+        "en": "Washing",
+        "no": "Vask"
+      }
+    },
+    {
+      "id": "prewash",
+      "title": {
+        "en": "Prewash",
+        "no": "Forvask"
+      }
+    },
+    {
+      "id": "water_intake",
+      "title": {
+        "en": "Water intake",
+        "no": "Vanninntak"
+      }
+    },
+    {
+      "id": "rinsing",
+      "title": {
+        "en": "Rinsing",
+        "no": "Skylling"
+      }
+    },
+    {
+      "id": "softener",
+      "title": {
+        "en": "Softener",
+        "no": "Tøymykner"
+      }
+    },
+    {
+      "id": "spin",
+      "title": {
+        "en": "Spin",
+        "no": "Sentrifugering"
+      }
+    },
+    {
+      "id": "drying",
+      "title": {
+        "en": "Drying",
+        "no": "Tørking"
+      }
+    },
+    {
+      "id": "finished",
+      "title": {
+        "en": "Finished",
+        "no": "Ferdig"
+      }
+    },
+    {
+      "id": "program_started",
+      "title": {
+        "en": "Program started",
+        "no": "Program startet"
+      }
+    },
+    {
+      "id": "delay",
+      "title": {
+        "en": "Delayed start",
+        "no": "Utsatt start"
+      }
+    },
+    {
+      "id": "paused",
+      "title": {
+        "en": "Paused",
+        "no": "Pause"
+      }
+    },
+    {
+      "id": "analysing",
+      "title": {
+        "en": "Analysing",
+        "no": "Analyserer"
+      }
+    },
+    {
+      "id": "door_locked",
+      "title": {
+        "en": "Door locked",
+        "no": "Dør låst"
+      }
+    },
+    {
+      "id": "locking_door",
+      "title": {
+        "en": "Locking door",
+        "no": "Låser dør"
+      }
+    },
+    {
+      "id": "opening_door",
+      "title": {
+        "en": "Opening door",
+        "no": "Åpner dør"
+      }
+    },
+    {
+      "id": "add_laundry",
+      "title": {
+        "en": "Add laundry",
+        "no": "Legg til tøy"
+      }
+    },
+    {
+      "id": "rinse_hold",
+      "title": {
+        "en": "Rinse hold",
+        "no": "Skyllestopp"
+      }
+    },
+    {
+      "id": "anticrease",
+      "title": {
+        "en": "Anti-crease",
+        "no": "Antikrøll"
+      }
+    },
+    {
+      "id": "unknown",
+      "title": {
+        "en": "Unknown",
+        "no": "Ukjent"
+      }
+    }
+  ]
+}

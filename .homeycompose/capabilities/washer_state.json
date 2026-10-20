@@ -1,0 +1,54 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Status",
+    "no": "Status"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "values": [
+    {
+      "id": "off",
+      "title": {
+        "en": "Off",
+        "no": "Av"
+      }
+    },
+    {
+      "id": "on",
+      "title": {
+        "en": "On",
+        "no": "På"
+      }
+    },
+    {
+      "id": "running",
+      "title": {
+        "en": "Running",
+        "no": "Kjører"
+      }
+    },
+    {
+      "id": "paused",
+      "title": {
+        "en": "Paused",
+        "no": "Pause"
+      }
+    },
+    {
+      "id": "delayed",
+      "title": {
+        "en": "Delayed start",
+        "no": "Utsatt start"
+      }
+    },
+    {
+      "id": "unknown",
+      "title": {
+        "en": "Unknown",
+        "no": "Ukjent"
+      }
+    }
+  ]
+}
