@@ -127,6 +127,7 @@ async function main() {
   await mkdir(OUT_DIR, { recursive: true });
   await writeFile(join(OUT_DIR, 'appliance.json'), `${JSON.stringify({ applianceId, bleName, appliance }, null, 2)}\n`);
 
+  let usedKeys = null;
   for (const lang of LANGUAGES) {
     let contents;
     try {
@@ -135,12 +136,47 @@ async function main() {
       console.warn(`Could not fetch ${lang}: ${err.message}`);
       continue;
     }
-    for (const c of contents) {
-      const file = c.ctype === 'CONFIGURATION' ? 'config.json' : `localization.${c.lang}.json`;
-      await writeFile(join(OUT_DIR, file), `${JSON.stringify(c.body, null, 2)}\n`);
-      console.log(`Saved model/${file} (${c.ctype} ${c.cid} v${c.ver} ${c.lang})`);
+
+    const config = contents.find((c) => c.ctype === 'CONFIGURATION');
+    if (config && !usedKeys) {
+      await writeFile(join(OUT_DIR, 'config.json'), `${JSON.stringify(config.body, null, 2)}\n`);
+      console.log(`Saved model/config.json (${config.cid} v${config.ver})`);
+      usedKeys = collectStrKeys(config.body);
+    }
+
+    // The texts are split over several files; merge them like api.py fetch_localizations,
+    // letting files in the requested language win over fallback-language files
+    const merged = {};
+    const files = contents
+      .filter((c) => c.ctype === 'LOCALIZATION')
+      .sort((a, b) => Number(a.lang === lang) - Number(b.lang === lang));
+    for (const c of files) {
+      for (const [key, value] of Object.entries(c.body.localizations || {})) {
+        merged[key.toLowerCase()] = value;
+      }
+      console.log(`  ${c.cid} v${c.ver} ${c.lang}: ${Object.keys(c.body.localizations || {}).length} texts`);
+    }
+    // Keep only texts the configuration refers to
+    const filtered = Object.fromEntries(
+      Object.keys(merged).sort()
+        .filter((key) => !usedKeys || usedKeys.has(key))
+        .map((key) => [key, merged[key]]),
+    );
+    await writeFile(join(OUT_DIR, `localization.${lang}.json`), `${JSON.stringify(filtered, null, 2)}\n`);
+    console.log(`Saved model/localization.${lang}.json (${Object.keys(filtered).length} texts)`);
+  }
+}
+
+function collectStrKeys(node, keys = new Set()) {
+  if (Array.isArray(node)) {
+    node.forEach((item) => collectStrKeys(item, keys));
+  } else if (node && typeof node === 'object') {
+    for (const [key, value] of Object.entries(node)) {
+      if ((key === 'strKey' || key === 'strKeyRef') && typeof value === 'string') keys.add(value.toLowerCase());
+      else collectStrKeys(value, keys);
     }
   }
+  return keys;
 }
 
 main().catch((err) => {
