@@ -7,7 +7,7 @@
   "getable": true,
   "setable": true,
   "uiComponent": "picker",
-  "icon": "/assets/capabilities/washer_program.svg",
+  "icon": "/assets/capabilities/washer_program_select.svg",
   "values": [
     {
       "id": "1",

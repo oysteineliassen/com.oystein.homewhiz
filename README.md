@@ -103,3 +103,8 @@ Kilde: [rowysock/home-assistant-HomeWhiz](https://github.com/rowysock/home-assis
 - HA henter konfigurasjonen fra skyen ved oppsett (innlogging + AWS-signert API), men bare én gang. Etterpå er alt lokalt over BLE.
 - Byte-posisjonene ser ut til å være felles for vaskemaskinene, men program-tabellen (nummer → navn) og hvilke faser som finnes er modellavhengig.
   Derfor skal konfigurasjonen for din modell hentes én gang med skriptet over og bakes inn i appen.
+
+## Ikoner
+
+Ikonene er fra [Material Design Icons](https://pictogrammers.com/library/mdi/) (Apache 2.0), via `@mdi/js` 7.4.47.
+Homey fyller alle figurer i et ikon og ignorerer streker, så ikonene må bestå av fylte figurer.
