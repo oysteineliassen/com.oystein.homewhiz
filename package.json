@@ -1,6 +1,6 @@
 {
   "name": "com.oystein.homewhiz",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "private": true,
   "description": "HomeWhiz washing machine over Bluetooth LE for Homey Pro",
   "main": "app.js",

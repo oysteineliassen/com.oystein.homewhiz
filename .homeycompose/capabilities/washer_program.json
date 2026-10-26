@@ -1,0 +1,11 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Program",
+    "no": "Program"
+  },
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/capabilities/washer_program.svg"
+}

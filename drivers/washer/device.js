@@ -24,7 +24,8 @@ class WasherDevice extends Homey.Device {
     for (const capability of this.driver.manifest.capabilities) {
       if (!this.hasCapability(capability)) await this.addCapability(capability).catch(this.error);
     }
-    // Replaced by the washer_program_select picker in 0.6.0
+    // Replaced by the washer_program_select picker in 0.6.0. The capability definition stays in
+    // .homeycompose so Homey can install updates while older devices still carry it
     if (this.hasCapability('washer_program')) await this.removeCapability('washer_program').catch(this.error);
 
     this._debugRaw = this.getSetting('debug_raw') !== false;
