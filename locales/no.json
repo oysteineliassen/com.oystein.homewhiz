@@ -1,6 +1,7 @@
 {
   "pair": {
-    "no_devices": "Fant ingen HomeWhiz-maskiner. Sjekk at maskinen er på og at HomeWhiz-appen på telefonen er frakoblet."
+    "no_devices": "Fant ingen HomeWhiz-maskiner. Sjekk at maskinen er på og at HomeWhiz-appen på telefonen er frakoblet.",
+    "default_name": "Vaskemaskin"
   },
   "phase": {
     "none": "Ingen",
@@ -39,5 +40,10 @@
     "unknown_program": "Ukjent program.",
     "temperature_not_allowed": "Den temperaturen finnes ikke for dette programmet.",
     "spin_not_allowed": "Den sentrifugehastigheten finnes ikke for dette programmet."
+  },
+  "warning": {
+    "doorOpen": "Døren er åpen",
+    "noWater": "Tar ikke inn vann",
+    "security": "Sikkerhetsadvarsel"
   }
 }

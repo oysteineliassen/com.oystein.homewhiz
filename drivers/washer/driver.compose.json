@@ -14,6 +14,9 @@
     "washer_temperature",
     "washer_spin",
     "washer_door_locked",
+    "alarm_generic.door_open",
+    "alarm_generic.no_water",
+    "alarm_generic.security",
     "washer_remote_control",
     "washer_on",
     "homewhiz_connected"
@@ -54,7 +57,27 @@
         "en": "Writes every received BLE frame and assembled status message as hex to the app log.",
         "no": "Skriver hver mottatte BLE-ramme og sammensatte statusmelding som hex til app-loggen."
       },
-      "value": true
+      "value": false
     }
-  ]
+  ],
+  "capabilitiesOptions": {
+    "alarm_generic.door_open": {
+      "title": {
+        "en": "Door open",
+        "no": "Døren er åpen"
+      }
+    },
+    "alarm_generic.no_water": {
+      "title": {
+        "en": "No water intake",
+        "no": "Tar ikke inn vann"
+      }
+    },
+    "alarm_generic.security": {
+      "title": {
+        "en": "Safety warning",
+        "no": "Sikkerhetsadvarsel"
+      }
+    }
+  }
 }

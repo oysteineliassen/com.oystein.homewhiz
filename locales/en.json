@@ -1,6 +1,7 @@
 {
   "pair": {
-    "no_devices": "No HomeWhiz machines found. Make sure the machine is on and that the HomeWhiz app on your phone is disconnected."
+    "no_devices": "No HomeWhiz machines found. Make sure the machine is on and that the HomeWhiz app on your phone is disconnected.",
+    "default_name": "Washing machine"
   },
   "phase": {
     "none": "Idle",
@@ -39,5 +40,10 @@
     "unknown_program": "Unknown programme.",
     "temperature_not_allowed": "That temperature is not available for this programme.",
     "spin_not_allowed": "That spin speed is not available for this programme."
+  },
+  "warning": {
+    "doorOpen": "Door open",
+    "noWater": "No water intake",
+    "security": "Safety warning"
   }
 }

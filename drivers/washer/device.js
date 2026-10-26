@@ -11,6 +11,13 @@ const { CommandError, planStateCommand, planProgramCommands } = require('../../l
 // in 5 s), so "Phase changed" fires only once a phase has lasted this long
 const PHASE_SETTLE_MS = 10000;
 
+// status.warnings key -> capability
+const WARNING_CAPABILITIES = {
+  doorOpen: 'alarm_generic.door_open',
+  noWater: 'alarm_generic.no_water',
+  security: 'alarm_generic.security',
+};
+
 // How long to wait for the machine to report the requested state after a command
 const COMMAND_TIMEOUT_MS = 15000;
 
@@ -21,8 +28,14 @@ class WasherDevice extends Homey.Device {
     this.log(`Init ${localName} (${peripheralUuid})`);
 
     // Devices paired with an older version lack the newer capabilities
+    const capabilitiesOptions = this.driver.manifest.capabilitiesOptions || {};
     for (const capability of this.driver.manifest.capabilities) {
-      if (!this.hasCapability(capability)) await this.addCapability(capability).catch(this.error);
+      if (this.hasCapability(capability)) continue;
+      await this.addCapability(capability).catch(this.error);
+      // Sub-capabilities like alarm_generic.no_water need their title set when added later
+      if (capabilitiesOptions[capability]) {
+        await this.setCapabilityOptions(capability, capabilitiesOptions[capability]).catch(this.error);
+      }
     }
     // Replaced by the washer_program_select picker in 0.6.0. The capability definition stays in
     // .homeycompose so Homey can install updates while older devices still carry it
@@ -135,6 +148,10 @@ class WasherDevice extends Homey.Device {
     });
   }
 
+  hasWarning() {
+    return Boolean(this._status && Object.values(this._status.warnings).some(Boolean));
+  }
+
   isRunning() {
     return Boolean(this._status && this._status.running);
   }
@@ -175,6 +192,7 @@ class WasherDevice extends Homey.Device {
       this._set('washer_spin', status.spin),
       this._set('washer_door_locked', status.doorLocked),
       this._set('washer_remote_control', status.remoteControl),
+      ...Object.entries(WARNING_CAPABILITIES).map(([key, capability]) => this._set(capability, status.warnings[key])),
     ]);
 
     const satisfied = this._waiters.filter((w) => w.predicate(status));
@@ -185,7 +203,7 @@ class WasherDevice extends Homey.Device {
     }
 
     for (const event of detectEvents(prev, status)) {
-      this.log(`Flow trigger: ${event.type}`);
+      this.log(`Flow trigger: ${event.type}${event.warning ? ` (${event.warning})` : ''}`);
       if (event.type === 'started') {
         await this.driver.programStartedTrigger.trigger(this, {
           program,
@@ -195,6 +213,11 @@ class WasherDevice extends Homey.Device {
         }).catch(this.error);
       } else if (event.type === 'phase') {
         this._schedulePhaseTrigger();
+      } else if (event.type === 'warning') {
+        await this.driver.warningTrigger.trigger(this, {
+          warning: this.homey.__(`warning.${event.warning}`),
+          warning_id: WARNING_CAPABILITIES[event.warning].split('.')[1],
+        }).catch(this.error);
       } else if (event.type === 'finished') {
         await this.driver.finishedTrigger.trigger(this, { program }).catch(this.error);
       }

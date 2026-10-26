@@ -16,6 +16,9 @@ class WasherDriver extends Homey.Driver {
     this.finishedTrigger = this.homey.flow.getDeviceTriggerCard('washer_finished');
     this.programStartedTrigger = this.homey.flow.getDeviceTriggerCard('washer_program_started');
     this.phaseChangedTrigger = this.homey.flow.getDeviceTriggerCard('washer_phase_changed');
+    this.warningTrigger = this.homey.flow.getDeviceTriggerCard('washer_warning');
+    this.homey.flow.getConditionCard('washer_has_warning')
+      .registerRunListener(async ({ device }) => device.hasWarning());
     this.homey.flow.getConditionCard('washer_is_running')
       .registerRunListener(async ({ device }) => device.isRunning());
     this.homey.flow.getConditionCard('washer_remote_control_enabled')
@@ -45,7 +48,7 @@ class WasherDriver extends Homey.Driver {
     const devices = advertisements
       .filter(looksLikeHomeWhiz)
       .map((adv) => ({
-        name: `HomeWhiz ${adv.localName}`,
+        name: this.homey.__('pair.default_name'),
         data: { id: adv.uuid },
         store: {
           peripheralUuid: adv.uuid,

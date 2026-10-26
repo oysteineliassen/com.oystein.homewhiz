@@ -7,11 +7,11 @@ Homey SDK v3, JavaScript, ingen avhengigheter utover Homey selv.
 capabilities, Flow-kort og fjernstart/pause.
 
 Capabilities: status (av/på/kjører/pause/utsatt start), slått på, program, fase, gjenstående tid, vasketemperatur,
-sentrifugehastighet, dør låst og Bluetooth tilkoblet.
+sentrifugehastighet, dør låst, advarsler (dør åpen, tar ikke inn vann, sikkerhet) og Bluetooth tilkoblet.
 
 «Vask er ferdig» utløses ikke når et program avbrytes. «Fase endret» utløses først når en fase har vart i 10 sekunder.
 
-Flow-kort: «Vask er ferdig», «Program startet» og «Fase endret» (triggere), «Maskinen kjører» og
+Flow-kort: «Vask er ferdig», «Program startet» og «Fase endret» og «Advarsel oppstod» (triggere), «Maskinen kjører», «Maskinen har en aktiv advarsel» og
 «Fjernstyring er aktivert» (betingelser), «Velg program», «Start programmet» og «Sett programmet på pause» (handlinger).
 
 ### Fjernstart og pause

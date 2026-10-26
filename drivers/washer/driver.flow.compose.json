@@ -98,6 +98,36 @@
           "example": "rinsing"
         }
       ]
+    },
+    {
+      "id": "washer_warning",
+      "title": {
+        "en": "A warning occurred",
+        "no": "Advarsel oppstod"
+      },
+      "tokens": [
+        {
+          "name": "warning",
+          "type": "string",
+          "title": {
+            "en": "Warning",
+            "no": "Advarsel"
+          },
+          "example": {
+            "en": "No water intake",
+            "no": "Tar ikke inn vann"
+          }
+        },
+        {
+          "name": "warning_id",
+          "type": "string",
+          "title": {
+            "en": "Warning ID",
+            "no": "Advarsel-ID"
+          },
+          "example": "no_water"
+        }
+      ]
     }
   ],
   "conditions": [
@@ -117,6 +147,13 @@
       "title": {
         "en": "Remote control !{{is|is not}} enabled",
         "no": "Fjernstyring !{{er|er ikke}} aktivert"
+      }
+    },
+    {
+      "id": "washer_has_warning",
+      "title": {
+        "en": "Machine !{{has|does not have}} an active warning",
+        "no": "Maskinen !{{har|har ikke}} en aktiv advarsel"
       }
     }
   ],

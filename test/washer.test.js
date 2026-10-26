@@ -101,3 +101,17 @@ test('real end of wash fires finished exactly once', () => {
   const fired = end.slice(1).flatMap((next, i) => types(end[i], next));
   assert.deepStrictEqual(fired, ['finished', 'phase']);
 });
+
+test('a warning fires once when it appears, not while it stays or on the first message', () => {
+  const w = (warnings) => ({ ...s('on'), warnings: { doorOpen: false, noWater: false, security: false, ...warnings } });
+  assert.deepStrictEqual(detectEvents(null, w({ noWater: true })), []);
+  assert.deepStrictEqual(detectEvents(w({}), w({ noWater: true })), [{ type: 'warning', warning: 'noWater' }]);
+  assert.deepStrictEqual(detectEvents(w({ noWater: true }), w({ noWater: true })), []);
+  assert.deepStrictEqual(detectEvents(w({ noWater: true }), w({})), []);
+});
+
+test('warning bits are decoded from byte 59', () => {
+  const message = realMessage();
+  message[59] = 0b110;
+  assert.deepStrictEqual(decodeWasher(message).warnings, { doorOpen: false, noWater: true, security: true });
+});

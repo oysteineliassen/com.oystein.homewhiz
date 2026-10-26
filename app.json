@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.oystein.homewhiz",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "compatibility": ">=12.0.0",
   "sdk": 3,
   "platforms": [
@@ -151,6 +151,43 @@
             "filter": "driver_id=washer"
           }
         ]
+      },
+      {
+        "id": "washer_warning",
+        "title": {
+          "en": "A warning occurred",
+          "no": "Advarsel oppstod"
+        },
+        "tokens": [
+          {
+            "name": "warning",
+            "type": "string",
+            "title": {
+              "en": "Warning",
+              "no": "Advarsel"
+            },
+            "example": {
+              "en": "No water intake",
+              "no": "Tar ikke inn vann"
+            }
+          },
+          {
+            "name": "warning_id",
+            "type": "string",
+            "title": {
+              "en": "Warning ID",
+              "no": "Advarsel-ID"
+            },
+            "example": "no_water"
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=washer"
+          }
+        ]
       }
     ],
     "conditions": [
@@ -177,6 +214,20 @@
         "title": {
           "en": "Remote control !{{is|is not}} enabled",
           "no": "Fjernstyring !{{er|er ikke}} aktivert"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=washer"
+          }
+        ]
+      },
+      {
+        "id": "washer_has_warning",
+        "title": {
+          "en": "Machine !{{has|does not have}} an active warning",
+          "no": "Maskinen !{{har|har ikke}} en aktiv advarsel"
         },
         "args": [
           {
@@ -540,6 +591,9 @@
         "washer_temperature",
         "washer_spin",
         "washer_door_locked",
+        "alarm_generic.door_open",
+        "alarm_generic.no_water",
+        "alarm_generic.security",
         "washer_remote_control",
         "washer_on",
         "homewhiz_connected"
@@ -580,9 +634,29 @@
             "en": "Writes every received BLE frame and assembled status message as hex to the app log.",
             "no": "Skriver hver mottatte BLE-ramme og sammensatte statusmelding som hex til app-loggen."
           },
-          "value": true
+          "value": false
         }
       ],
+      "capabilitiesOptions": {
+        "alarm_generic.door_open": {
+          "title": {
+            "en": "Door open",
+            "no": "Døren er åpen"
+          }
+        },
+        "alarm_generic.no_water": {
+          "title": {
+            "en": "No water intake",
+            "no": "Tar ikke inn vann"
+          }
+        },
+        "alarm_generic.security": {
+          "title": {
+            "en": "Safety warning",
+            "no": "Sikkerhetsadvarsel"
+          }
+        }
+      },
       "id": "washer"
     }
   ],
