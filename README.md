@@ -58,6 +58,8 @@ hvis den ikke dukker opp i lista.
 | `Status: state=… program=… phase=…` | Dekodet status (rå verdi i parentes) |
 | `Flow trigger: started/phase/finished` | Flow-kort som ble utløst |
 | `Machine not reachable (…). Retrying quietly…` | Logges én gang når maskinen forsvinner; deretter stille forsøk hvert minutt |
+| `No answer from the machine, reconnecting` | Ingen data på 5 min og ikke svar på oppstartskommandoen innen 30 s; kobler til på nytt |
+| `No connection attempt pending` / `Connection attempt stuck` | Vakthunden fant en tilkoblingsløkke som hadde stoppet, og startet den igjen |
 
 ## Maskinkonfigurasjon fra skyen (engangsjobb)
 
